@@ -26,6 +26,8 @@ For debian based systems
 sudo apt install libsfml-dev
 ```
 
+for manual installation visit [here](https://medium.com/@Rewieer/install-sfml-2-5-1-on-ubuntu-18-04-and-clion-9e0dfe86e87f)
+
 ## Usage (TODO)
 
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
@@ -33,10 +35,11 @@ Support
 
 ## Roadmap (TODO)
 
- - [X] Configure Project and CMakeLists.txt
- - [X] SFML Installation
- - [ ] SFML Window Output
- - [ ] SFML GRID Output
+ - [x] Configure project and CMakeLists.txt
+ - [x] SFML installation amd sample output
+ - [x] Define board class header
+ - [x] Implement board class
+ - [ ] Conceptualize and define CellMap
  - [ ] Update README (https://www.makeareadme.com/#usage)
 
 

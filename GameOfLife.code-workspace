@@ -4,5 +4,13 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.sdf": "xml",
+			"*.tcc": "cpp",
+			"fstream": "cpp",
+			"random": "cpp",
+			"iostream": "cpp"
+		}
+	}
 }

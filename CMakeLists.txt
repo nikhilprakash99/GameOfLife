@@ -14,5 +14,9 @@ include_directories(
 	"include"
 )
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+file(GLOB SOURCES
+	"src/*.cpp"
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-audio)
