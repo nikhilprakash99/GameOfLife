@@ -22,56 +22,79 @@ void cellmap::copy_cells(cellmap *sourcemap)
 
 void cellmap::set_cell(unsigned int x, unsigned int y)
 {
-   unsigned char *cell_ptr =
-         cells + (y * width + x);
+   unsigned char *cell_ptr = cells + (y * width + x);
+   int xoleft, xoright, yoabove, yobelow;
 
-   *(cell_ptr) = 1;
+   xoleft = -1;
+   yoabove = -width;
+   xoright = 1;
+   yobelow = width;
+
+   *(cell_ptr)|=0x01;
+
+   if(y>0){
+         *(cell_ptr + yoabove) += 2;
+      if(x>0)
+         *(cell_ptr + yoabove + xoleft) += 2;
+      if(x<width-1)
+         *(cell_ptr + yoabove + xoright) += 2;      
+   }
+
+   if(y<height-1){
+         *(cell_ptr + yobelow) += 2;
+      if(x>0)
+         *(cell_ptr + yobelow + xoleft) += 2;
+      if(x<width-1)
+         *(cell_ptr + yobelow + xoright) += 2;
+   }
+
+   if(x>0)
+      *(cell_ptr + xoleft) += 2;
+   if(x<width-1)
+      *(cell_ptr + xoright) += 2;
 }
 
 void cellmap::clear_cell(unsigned int x, unsigned int y)
 {
-   uint8_t *cell_ptr =
-         cells + (y * width) + x;
+   unsigned char *cell_ptr = cells + (y * width + x);
+   int xoleft, xoright, yoabove, yobelow;
 
-   *(cell_ptr) = 0;
+   xoleft = -1;
+   yoabove = -width;
+   xoright = 1;
+   yobelow = width;
+
+   *(cell_ptr)&=~0x01;
+
+   if(y>0){
+         *(cell_ptr + yoabove) -= 2;
+      if(x>0)
+         *(cell_ptr + yoabove + xoleft) -= 2;
+      if(x<width-1)
+         *(cell_ptr + yoabove + xoright) -= 2;      
+   }
+
+   if(y<height-1){
+         *(cell_ptr + yobelow) -= 2;
+      if(x>0)
+         *(cell_ptr + yobelow + xoleft) -= 2;
+      if(x<width-1)
+         *(cell_ptr + yobelow + xoright) -= 2;
+   }
+
+   if(x>0)
+      *(cell_ptr + xoleft) -= 2;
+   if(x<width-1)
+      *(cell_ptr + xoright) -= 2;
 }
 
 uint8_t cellmap::cell_state(int x, int y)
 {
   uint8_t *cell_ptr;
-
-  if ((x < 0) || (x >= width) || (y < 0) || (y >= height))
-    return 0;   // Border case
-
   cell_ptr = cells + (y * width) + x;
-  return *cell_ptr;
-}
-
-void cellmap::next_generation(cellmap* next_map)
-{
-   unsigned int x, y, neighbor_count;
-
-   for (y=0; y<height; y++) {
-      for (x=0; x<width; x++) {
-         // Figure out how many neighbors this cell has
-         neighbor_count = cell_state(x-1, y-1) + cell_state(x, y-1) +
-               cell_state(x+1, y-1) + cell_state(x-1, y) +
-               cell_state(x+1, y) + cell_state(x-1, y+1) +
-               cell_state(x, y+1) + cell_state(x+1, y+1);
-         if (cell_state(x, y) == 1) {
-            // The cell is on; does it stay on?
-            if ((neighbor_count != 2) && (neighbor_count != 3)) {
-               next_map->clear_cell(x, y);    // turn it off
-            }
-         } else {
-            // The cell is off; does it turn on?
-            if (neighbor_count == 3) {
-               next_map->set_cell(x, y);      // turn it on
-            }
-         }
-      }
-   }
+  return *cell_ptr& 0x01;
 }
 
 std::size_t cellmap::getWidth() { return width; }
 std::size_t cellmap::getHeight() {return height;}
+const uint8_t* cellmap::getCellsPtr() { return (const uint8_t *)cells; }

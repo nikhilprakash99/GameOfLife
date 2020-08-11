@@ -18,7 +18,7 @@ class LifeSim {
   private:
    unsigned rate;
    unsigned generation;
-   cellmap *next_map;
+   uint8_t *temp_cells;
    std::chrono::milliseconds step_period;
    std::chrono::high_resolution_clock::time_point next_step;
 };
