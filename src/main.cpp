@@ -1,27 +1,38 @@
 #include <iostream>
+#include <string>
+
+#include "ParseRLE.h"
+#include "CellMap.h"
 #include "Board.h"
+#include "LifeSim.h"
+
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
-  Board board(50,40,24.0f);
+  // std::string filePath(argv[1]);
+  std::string filePath("/home/nikhilprakash99/dev/GameOfLife/RLE/R-Pentomino6.rle");
+  ParseRLE parser(filePath);
 
-  bool a[256][256];
-
-  for (int i = 0; i < 50; i++){
-    for (int j = 0; j < 40; j++)
-    {
-      a[i][j] = (i + j) % 2;
-    }
-  }
+  cellmap *current_map = new cellmap(parser.GetWidth(), parser.GetHeight());
+  Board board(parser.GetWidth(), parser.GetHeight(),1024.0f / parser.GetWidth());
   
-    while (board.isOpen()) {
-      board.displayBoard(a);
+  parser.apply_preset(current_map);
+  LifeSim sim(current_map, 5);
 
-      if (board.checkForClose())
-        board.close();
-    }
+  while(sim.getGeneration()<10000){
+    sim.step(current_map);
+  }
 
+  // while (board.isOpen()) {
+  //   board.displayBoard(current_map);
+
+  //   // sim.syncStep(current_map);
+
+  //   if (board.checkForClose()) board.close();
+  // }
+
+  delete current_map;
   return 0;
 }

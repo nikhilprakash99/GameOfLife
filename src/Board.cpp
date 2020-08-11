@@ -13,13 +13,13 @@ boardWidth(board_width)
         "Conway's Game of Life",sf::Style::Titlebar|sf::Style::Close);
 }
 
-void Board::displayBoard(bool a[256][256],sf::Color color) {
+void Board::displayBoard(cellmap *map,sf::Color color) {
   checkForClose();
   clear();
   auto size = cell.getSize();
   for (std::size_t y{0}; y < boardHeight; y++)
     for (std::size_t x{0}; x < boardWidth; x++)
-      if (a[x][y]) {
+      if (map->cell_state(x,y)) {
         cell.setPosition(x * size.x, y* size.y);
         cell.setFillColor(color);
         draw(cell);
@@ -29,7 +29,10 @@ void Board::displayBoard(bool a[256][256],sf::Color color) {
 
 bool Board::checkForClose(){
   sf::Event event;
-  while (pollEvent(event)) {
-    if (event.type == sf::Event::Closed) return true;
+  if (pollEvent(event)) {
+    if (event.type == sf::Event::Closed)
+      return true;
+    else
+      return false;
   }
 }
