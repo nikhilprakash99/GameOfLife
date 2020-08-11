@@ -3,7 +3,7 @@ An efficient C++ implementation of Conway's Game of Life using SFML for visualiz
 
 ## Description
 
-This Project contains a simple but efficient implementation of Conway's game Of Life.We can visualize the simulations with the help of SFML. The application can also parse and simulate patterns from .rle files used by golly.
+This Project contains a simple but efficient implementation of Conway's game Of Life. The application also has a module to parse and simulate patterns from .rle files used by golly.
 
 ![Image Of Simulation](./Documentation/Sample%20Output.png)
 
