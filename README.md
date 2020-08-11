@@ -1,7 +1,7 @@
 # GameOfLife
 An efficient C++ implementation of Conway's Game of Life using SFML for visualization
 
-## Description (TODO)
+## Description
 
 This Project contains a simple but efficient implementation of Conway's game Of Life.We can visualize the simulations with the help of SFML. The application can also parse and simulate patterns from .rle files used by golly.
 
@@ -21,7 +21,7 @@ sudo apt install libsfml-dev
 
 for manual installation visit [here](https://medium.com/@Rewieer/install-sfml-2-5-1-on-ubuntu-18-04-and-clion-9e0dfe86e87f)
 
-## Usage (TODO)
+## Usage
 
 The executable file GameOfLife is located inside the bin folder. we can visualize the simulation by running the executable with an RLE file's path as argument
 
@@ -34,7 +34,7 @@ cd PROJECT_ROOT/bin
 ```
 
 
-## Roadmap (TODO)
+## Roadmap
 
  - [ ] Add Unit testing
  - [ ] add more effective algorithms like Qlife, Hashlife etc
